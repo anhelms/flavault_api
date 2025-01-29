@@ -32,4 +32,11 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)
     assert_equal "Updated title", data["title"]
   end
+
+  test "destroy" do
+    assert_difference "Recipe.count", -1 do
+      delete "/recipes/#{Recipe.first.id}.json"
+      assert_response 200
+    end
+  end
 end

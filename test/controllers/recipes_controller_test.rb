@@ -23,4 +23,13 @@ class RecipesControllerTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)
     assert_equal ["id", "title", "prep_time", "servings", "description", "ingredients", "directions", "chef", "image_url", "created_at", "updated_at"], data.keys
   end
+
+  test "update" do
+    recipe = Recipe.first
+    patch "/recipes/#{recipe.id}.json", params: { title: "Updated title" }
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    assert_equal "Updated title", data["title"]
+  end
 end
